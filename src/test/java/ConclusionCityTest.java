@@ -9,8 +9,9 @@ import static org.junit.Assert.*;
 
 public class ConclusionCityTest {
     List<City> cityList;
-    ImplementSortCities implementSortCities = new ImplementSortCities();
-    ImplementSearchNumberArray implementSearchNumberArray = new ImplementSearchNumberArray();
+    SortCities implementSortCities = new ImplementSortCities();
+    SearchNumberArray implementSearchNumberArray = new ImplementSearchNumberArray();
+
     @Before
     public void setUp() throws FileNotFoundException {
         ConclusionCity conclusionCity = new ConclusionCity();
@@ -33,7 +34,6 @@ public class ConclusionCityTest {
 
     @Test
     public void sortByName(){
-        cityList.sort(Comparator.comparing(City::getName, String::compareToIgnoreCase));
         List<City> testCityList2 = new ArrayList<>();
         City city1 = new City("Абаза", "Хакасия", "Сибирский", 17111, "1867");
         City city2 = new City("Абакан", "Хакасия", "Сибирский", 165183, "1931");
@@ -41,11 +41,11 @@ public class ConclusionCityTest {
         testCityList2.add(city1);
         testCityList2.add(city2);
         testCityList2.add(city3);
-        Assert.assertEquals(cityList, testCityList2);
+        Assert.assertEquals(implementSortCities.sortByName(cityList), testCityList2);
     }
     @Test
     public void sortByNameAbdDistrict(){
-        cityList.sort(Comparator.comparing(City::getName).thenComparing(City::getDistrict));
+
         List<City> testCityList3 = new ArrayList<>();
         City city1 = new City("Абаза", "Хакасия", "Сибирский", 17111, "1867");
         City city2 = new City("Абакан", "Хакасия", "Сибирский", 165183, "1931");
@@ -53,7 +53,7 @@ public class ConclusionCityTest {
         testCityList3.add(city1);
         testCityList3.add(city2);
         testCityList3.add(city3);
-        Assert.assertEquals(cityList, testCityList3);
+        Assert.assertEquals(implementSortCities.sortByNameAbdDistrict(cityList), testCityList3);
     }
     @Test
     public void largestPopulation(){
@@ -61,20 +61,11 @@ public class ConclusionCityTest {
     }
     @Test
     public void countCityFromRegion(){
-        Map<String, Integer> hash = new HashMap<>();
-
-        for (City city : cityList) {
-            int count = 1;
-            if (hash.containsKey(city.getDistrict())) {
-                count = hash.get(city.getDistrict()) + 1;
-            }
-            hash.put(city.getDistrict(), count);
-        }
 
         Map<String, Integer> test = new HashMap<>();
         test.put("Сибирский", 2);
         test.put("Приволжский", 1);
-        Assert.assertEquals(test, hash);
+        Assert.assertEquals(implementSearchNumberArray.countCityFromRegion(cityList),test );
 
     }
 
